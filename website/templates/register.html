@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container">
+    <h2 style="text-align: center; color: #0056b3;">Đăng Ký Tài Khoản</h2>
+    <form method="POST">
+        <label>Tên đăng nhập mới:</label>
+        <input type="text" name="username" required>
+        
+        <label>Mật khẩu:</label>
+        <input type="password" name="password" required>
+        
+        <button type="submit" style="width: 100%;">Tạo Tài Khoản</button>
+    </form>
+    <p style="text-align: center; margin-top: 15px;">Đã có tài khoản? <a href="/login">Đăng nhập tại đây</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Chia Sẻ Tài Liệu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="/">Trang Chủ</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                {% if user.role == 'admin' %}
+                    <a href="/admin" style="background-color: #dc3545; color: white; padding: 5px 10px; border-radius: 5px; border: 1px solid white;">⚙️ Quản Lý Hệ Thống</a>
+                {% endif %}
+
+                <a href="/upload">Đăng Tài Liệu Mới</a>
+                <a href="/logout">Đăng Xuất ({{ user.username }})</a>
+            {% else %}
+                <a href="/login">Đăng Nhập</a>
+                <a href="/register">Đăng Ký</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

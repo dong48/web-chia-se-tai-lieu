@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container">
+    <h2 style="text-align: center; color: #0056b3;">Sửa Thông Tin Tài Liệu</h2>
+    <form method="POST">
+        <label>Tên tài liệu / Môn học:</label>
+        <input type="text" name="title" value="{{ doc.title }}" required>
+        
+        <label>Mô tả chi tiết:</label>
+        <textarea name="description" rows="5">{{ doc.description }}</textarea>
+        
+        <p style="color: #777; font-size: 0.9em;"><em>Lưu ý: Không hỗ trợ thay đổi file đính kèm. Nếu muốn đổi file, vui lòng xóa bài này và đăng lại bài mới.</em></p>
+        
+        <button type="submit" style="width: 100%;">Lưu Thay Đổi</button>
+    </form>
+</div>
+{% endblock %}

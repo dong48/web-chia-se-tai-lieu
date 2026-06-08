@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container">
+    <h2 style="text-align: center; color: #0056b3;">Đăng Tài Liệu Mới</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Tên tài liệu / Môn học (*):</label>
+        <input type="text" name="title" required>
+        
+        <label>Mô tả chi tiết:</label>
+        <textarea name="description" rows="5"></textarea>
+        
+        <label>Chọn file đính kèm (*):</label>
+        <input type="file" name="file" required>
+        
+        <button type="submit" style="width: 100%;">Tải Lên Hệ Thống</button>
+    </form>
+</div>
+{% endblock %}

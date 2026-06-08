@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="border: 2px solid #dc3545; padding: 20px; border-radius: 8px; background-color: #fffafb;">
+    <h2 style="color: #dc3545; text-align: center;">⚙️ BẢNG ĐIỀU KHIỂN QUẢN TRỊ VIÊN</h2>
+    <p style="text-align: center;">Chào mừng sếp <strong>{{ user.username }}</strong>! Đây là khu vực quản lý hệ thống.</p>
+    
+    <hr>
+    
+    <div style="display: flex; justify-content: space-around; margin: 30px 0;">
+        <div style="background: #0056b3; color: white; padding: 20px; border-radius: 8px; width: 40%; text-align: center;">
+            <h3>Tổng số Người dùng</h3>
+            <h1 style="font-size: 3em; margin: 0;">{{ all_users|length }}</h1>
+        </div>
+        <div style="background: #28a745; color: white; padding: 20px; border-radius: 8px; width: 40%; text-align: center;">
+            <h3>Tổng số Tài liệu</h3>
+            <h1 style="font-size: 3em; margin: 0;">{{ all_docs|length }}</h1>
+        </div>
+    </div>
+
+    <h3 style="color: #333;">Danh sách Tài khoản trên hệ thống:</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+        <tr style="background-color: #333; color: white;">
+            <th style="padding: 10px; border: 1px solid #ddd;">ID</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Tên đăng nhập</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Vai trò (Role)</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Số tài liệu đã đăng</th>
+        </tr>
+        {% for u in all_users %}
+        <tr style="text-align: center; background-color: white;">
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ u.id }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">{{ u.username }}</td>
+            
+            <td style="padding: 10px; border: 1px solid #ddd; color: {{ 'red' if u.role == 'admin' else 'black' }};">
+                {{ 'Quản trị viên' if u.role == 'admin' else 'Người dùng' }}
+            </td>
+            
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ u.documents|length }} bài</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="/" class="btn">Quay lại Trang Chủ để Quản lý Tài Liệu</a>
+    </div>
+</div>
+{% endblock %}

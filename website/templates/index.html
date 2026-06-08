@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="text-align: center; color: #333; margin-bottom: 20px;">Kho Tài Liệu Học Tập</h2>
+
+<form method="GET" action="/" style="display: flex; gap: 10px; margin-bottom: 30px;">
+    <input type="text" name="search" value="{{ search_query }}" placeholder="Nhập tên tài liệu cần tìm..." style="margin: 0; width: 80%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+    <button type="submit" style="margin: 0; width: 20%; background-color: #0056b3; color: white; border: none; border-radius: 5px; cursor: pointer;">Tìm kiếm</button>
+</form>
+
+{% for doc in documents %}
+<div class="doc-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 20px; background-color: #f9f9f9;">
+    <h3 style="color: #0056b3; margin-top: 0;">{{ doc.title }}</h3>
+    <p>
+        <strong>Người đăng:</strong> 
+        {% if doc.author.role == 'admin' %}
+            <span style="color: red; font-weight: bold;">[Quản trị viên] {{ doc.author.username }}</span>
+        {% else %}
+            {{ doc.author.username }}
+        {% endif %}
+        | <strong>Ngày:</strong> {{ doc.date_uploaded.strftime('%d/%m/%Y') }}
+    </p>
+    <p style="color: #555;">{{ doc.description }}</p>
+    
+    <div style="margin-top: 15px;">
+        <a href="/download/{{ doc.filename }}" class="btn" style="background-color: #28a745; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; margin-right: 5px;">Tải file đính kèm</a>
+        
+        {% if user.id == doc.user_id %}
+            <a href="/edit/{{ doc.id }}" class="btn btn-warning" style="background-color: #ffc107; color: black; padding: 8px 15px; text-decoration: none; border-radius: 5px; margin-right: 5px;">Sửa</a>
+        {% endif %}
+
+        {% if user.id == doc.user_id or user.role == 'admin' %}
+            <a href="/delete/{{ doc.id }}" class="btn btn-danger" onclick="return confirm('Hệ thống: Bạn có chắc muốn xóa vĩnh viễn tài liệu này?')" style="background-color: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px;">Xóa</a>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+    <p style="text-align: center; color: #777; font-style: italic;">Chưa có tài liệu nào trên hệ thống hoặc không tìm thấy kết quả.</p>
+{% endfor %}
+{% endblock %}
